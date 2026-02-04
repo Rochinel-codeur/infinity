@@ -1,12 +1,18 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/page": "app/page.js",
+  "/api/admin/analytics/route": "app/api/admin/analytics/route.js",
+  "/api/admin/export/events/route": "app/api/admin/export/events/route.js",
+  "/api/admin/export/users/route": "app/api/admin/export/users/route.js",
+  "/api/admin/login/route": "app/api/admin/login/route.js",
+  "/api/admin/logout/route": "app/api/admin/logout/route.js",
   "/api/admin/notifications/route": "app/api/admin/notifications/route.js",
   "/api/admin/stats/route": "app/api/admin/stats/route.js",
-  "/api/admin/analytics/route": "app/api/admin/analytics/route.js",
-  "/api/admin/users/route": "app/api/admin/users/route.js",
   "/api/admin/testimonials/route": "app/api/admin/testimonials/route.js",
+  "/api/admin/users/route": "app/api/admin/users/route.js",
   "/api/track/route": "app/api/track/route.js",
+  "/page": "app/page.js",
+  "/robots.txt/route": "app/robots.txt/route.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js",
   "/admin/page": "app/admin/page.js",
   "/admin/dashboard/page": "app/admin/dashboard/page.js"
 }

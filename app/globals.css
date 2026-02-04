@@ -26,23 +26,23 @@ h1, h2, h3, h4, h5, h6 {
   width: 100vw;
   height: 100vh;
   z-index: -1;
-  background-color: #fafafa;
+  background-color: #000000;
   background-image: 
-    radial-gradient(at 0% 0%, rgba(52, 211, 153, 0.15) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(16, 185, 129, 0.1) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(251, 191, 36, 0.05) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, rgba(52, 211, 153, 0.1) 0px, transparent 50%);
+    radial-gradient(at 0% 0%, rgba(29, 78, 216, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(30, 64, 175, 0.1) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(37, 99, 235, 0.05) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(29, 78, 216, 0.1) 0px, transparent 50%);
   filter: blur(40px);
   opacity: 0.8;
 }
 
 .dark .mesh-bg {
-  background-color: #0a0a0c;
+  background-color: #000000;
   background-image: 
-    radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.15) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(5, 150, 105, 0.15) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(4, 120, 87, 0.1) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, rgba(6, 78, 59, 0.1) 0px, transparent 50%);
+    radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.2) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(23, 37, 84, 0.2) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(30, 64, 175, 0.15) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(23, 37, 84, 0.15) 0px, transparent 50%);
 }
 
 .noise-overlay {

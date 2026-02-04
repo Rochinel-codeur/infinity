@@ -11,7 +11,7 @@ interface AdminPayload {
   role: string;
 }
 
-type TabType = "overview" | "analytics" | "users" | "testimonials" | "settings";
+type TabType = "overview" | "analytics" | "users" | "testimonials" | "videos" | "settings";
 
 interface AdminSidebarProps {
   admin: AdminPayload;
@@ -26,6 +26,7 @@ const tabs = [
   { id: "analytics" as const, label: "Analytics", icon: "📈" },
   { id: "users" as const, label: "Utilisateurs", icon: "👥" },
   { id: "testimonials" as const, label: "Témoignages", icon: "💬" },
+  { id: "videos" as const, label: "Vidéos", icon: "🎬" },
   { id: "settings" as const, label: "Paramètres", icon: "⚙️" },
 ];
 

@@ -2,13 +2,13 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { format } from "date-fns";
-import { fr } from "date-fns/locale";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts";
 import { AdminSidebar } from "./AdminSidebar";
 import { AdminHeader } from "./AdminHeader";
 import { AnalyticsTab } from "./AnalyticsTab";
 import { UsersTab } from "./UsersTab";
 import { TestimonialsTab } from "./TestimonialsTab";
+import { VideosTab } from "./VideosTab";
 import { SettingsTab } from "./SettingsTab";
 
 interface AdminPayload {
@@ -51,7 +51,7 @@ interface Stats {
   }>;
 }
 
-type TabType = "overview" | "analytics" | "users" | "testimonials" | "settings";
+type TabType = "overview" | "analytics" | "users" | "testimonials" | "videos" | "settings";
 
 export function AdminDashboard({ admin }: { admin: AdminPayload }) {
   const [activeTab, setActiveTab] = useState<TabType>("overview");
@@ -84,6 +84,7 @@ export function AdminDashboard({ admin }: { admin: AdminPayload }) {
     analytics: "Analytics",
     users: "Utilisateurs",
     testimonials: "Témoignages",
+    videos: "Vidéos",
     settings: "Paramètres"
   };
 
@@ -118,6 +119,7 @@ export function AdminDashboard({ admin }: { admin: AdminPayload }) {
           {activeTab === "analytics" && <AnalyticsTab />}
           {activeTab === "users" && <UsersTab />}
           {activeTab === "testimonials" && <TestimonialsTab />}
+          {activeTab === "videos" && <VideosTab />}
           {activeTab === "settings" && <SettingsTab admin={admin} />}
         </div>
       </main>
