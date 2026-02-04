@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Admin users for dashboard access
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Track users who used the promo code
+model User {
+  id          String   @id @default(cuid())
+  email       String?
+  phone       String?
+  promoCode   String
+  source      String?  // facebook, direct, etc.
+  device      String?  // mobile, desktop
+  browser     String?
+  country     String?
+  city        String?
+  ipAddress   String?
+  status      String   @default("registered") // registered, verified, active
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Track all events/analytics
+model Event {
+  id        String   @id @default(cuid())
+  type      String   // page_view, code_copy, download_click, signup_click
+  source    String?  // referrer
+  device    String?
+  browser   String?
+  country   String?
+  metadata  String?  // JSON string for additional data
+  sessionId String?
+  createdAt DateTime @default(now())
+}
+
+// Manage testimonials from admin
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  text      String
+  date      DateTime
+  source    String   @default("WhatsApp")
+  imageUrl  String?
+  isActive  Boolean  @default(true)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Site settings
+model Setting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
