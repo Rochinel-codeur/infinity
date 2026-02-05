@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
 import { TrackingProvider } from "@/components/TrackingProvider";
+import { PushNotificationManager } from "@/components/PushNotificationManager";
 
 function getMetadataBase(): URL | undefined {
   const raw = process.env.NEXT_PUBLIC_SITE_URL;
@@ -82,6 +83,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="min-h-screen bg-white text-zinc-950 antialiased selection:bg-emerald-500/20 selection:text-zinc-950 dark:bg-zinc-950 dark:text-zinc-50 dark:selection:bg-emerald-400/30 dark:selection:text-zinc-50">
         <TrackingProvider>
           {children}
+          <PushNotificationManager />
         </TrackingProvider>
       </body>
     </html>

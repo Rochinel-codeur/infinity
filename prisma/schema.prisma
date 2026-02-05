@@ -58,6 +58,7 @@ model Testimonial {
   text      String
   date      DateTime
   source    String   @default("WhatsApp")
+  rating    Int      @default(5)
   imageUrl  String?
   isActive  Boolean  @default(true)
   order     Int      @default(0)
@@ -70,6 +71,55 @@ model Setting {
   id        String   @id @default(cuid())
   key       String   @unique
   value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Manage videos from admin
+model Video {
+  id          String   @id @default(cuid())
+  title       String
+  url         String
+  thumbnailUrl String?
+  isActive    Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Manage promo codes from admin
+model PromoCode {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  description String?
+  bonusAmount String?  // e.g. "200%"
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Push Notifications Subscriptions
+model PushSubscription {
+  id        String   @id @default(cuid())
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  userId    String?  // Optional link to User model
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Scrolling Screenshots (Marquee)
+model WinningScreenshot {
+  id        String   @id @default(cuid())
+  name      String
+  message   String
+  amount    String
+  time      String
+  imageUrl  String?
+  type      String   @default("win") // win, thanks
+  isActive  Boolean  @default(true)
+  order     Int      @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

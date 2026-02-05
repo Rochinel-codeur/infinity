@@ -65,9 +65,19 @@ export function UsersTab() {
     }
   };
 
+  const deleteUser = async (id: string) => {
+    if (!confirm("Voulez-vous vraiment supprimer cet utilisateur ?")) return;
+    try {
+      const res = await fetch(`/api/admin/users?id=${id}`, { method: "DELETE" });
+      if (res.ok) {
+        fetchUsers();
+      }
+    } catch (e) { console.error(e); }
+  };
+
   return (
     <div className="space-y-6">
-      {/* Actions Bar */}
+      {/* ... existing header ... */}
       <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
         <div className="flex-1 w-full sm:max-w-md relative">
           <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -109,18 +119,19 @@ export function UsersTab() {
                 <th>Appareil</th>
                 <th>Statut</th>
                 <th>Date</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {isLoading ? (
                 <tr>
-                  <td colSpan={6} className="text-center py-12">
+                  <td colSpan={7} className="text-center py-12">
                     <div className="animate-spin w-6 h-6 border-4 border-indigo-500 border-t-transparent rounded-full mx-auto" />
                   </td>
                 </tr>
               ) : users.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="text-center py-12 text-slate-500">
+                  <td colSpan={7} className="text-center py-12 text-slate-500">
                     <div className="flex flex-col items-center gap-2">
                       <span className="text-4xl">👥</span>
                       <p>Aucun utilisateur trouvé</p>
@@ -157,6 +168,15 @@ export function UsersTab() {
                     </td>
                     <td className="text-slate-500 text-sm">
                       {format(new Date(user.createdAt), "dd/MM/yyyy HH:mm")}
+                    </td>
+                    <td>
+                      <button 
+                        onClick={() => deleteUser(user.id)}
+                        className="p-2 text-slate-400 hover:text-red-500 transition-colors"
+                        title="Supprimer"
+                      >
+                        🗑️
+                      </button>
                     </td>
                   </tr>
                 ))

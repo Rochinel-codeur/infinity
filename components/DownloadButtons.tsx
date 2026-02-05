@@ -58,7 +58,7 @@ function AppleIcon() {
 
 function GooglePlayIcon() {
   return (
-    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 via-green-500 to-yellow-500 flex items-center justify-center shadow-md">
+    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 via-indigo-500 to-cyan-500 flex items-center justify-center shadow-md">
       <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 text-white">
         <path
           fill="currentColor"
@@ -89,10 +89,10 @@ export function DownloadButtons({
           <AppleIcon />
           <div className="text-left">
             <div className="text-[10px] font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-wide">
-              Télécharger sur
+              Télécharger 1xBet
             </div>
             <div className="text-base font-bold text-white dark:text-zinc-900">
-              App Store
+              App Store (iOS)
             </div>
           </div>
         </ButtonShell>
@@ -101,10 +101,10 @@ export function DownloadButtons({
           <GooglePlayIcon />
           <div className="text-left">
             <div className="text-[10px] font-medium text-zinc-400 uppercase tracking-wide">
-              Disponible sur
+              Télécharger 1xBet
             </div>
             <div className="text-base font-bold text-zinc-900 dark:text-zinc-100">
-              Google Play
+              Google Play (Android)
             </div>
           </div>
         </ButtonShell>
