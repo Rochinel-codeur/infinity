@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { getAdminFromCookies } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 
@@ -25,7 +25,7 @@ export async function GET() {
         try {
             const meta = e.metadata ? JSON.parse(String(e.metadata)) : {};
             if (meta.read) read = true;
-        } catch (_) {}
+        } catch {}
 
         return {
             id: e.id,

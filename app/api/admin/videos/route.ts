@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma";
 import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   const admin = await getAdminFromCookies();
   
   if (!admin) {

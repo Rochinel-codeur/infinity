@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     const userAgent = request.headers.get("user-agent") || "";
     const referer = request.headers.get("referer") || "";
     const forwardedFor = request.headers.get("x-forwarded-for");
-    const ip = forwardedFor?.split(",")[0] || "unknown";
+    // const ip = forwardedFor?.split(",")[0] || "unknown";
     
     // Detect device type
     const isMobile = /mobile|android|iphone|ipad|tablet/i.test(userAgent);

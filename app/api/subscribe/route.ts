@@ -1,6 +1,7 @@
 
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { PrismaClientKnownRequestError } from "@prisma/client";
 
 export async function POST(req: Request) {
   try {
@@ -22,7 +23,7 @@ export async function POST(req: Request) {
   } catch (error) {
     console.error("Error saving subscription:", error);
     // Unique constraint violation
-    if ((error as any).code === 'P2002') {
+    if ((error as PrismaClientKnownRequestError).code === 'P2002') {
          return NextResponse.json({ success: true, message: "Already subscribed" });
     }
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });

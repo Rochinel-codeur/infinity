@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAdminFromCookies } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 import { writeFile } from "fs/promises";
 import { join } from "path";
 import { v4 as uuidv4 } from "uuid";
@@ -20,7 +21,7 @@ async function uploadFile(file: File) {
   }
 }
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   const admin = await getAdminFromCookies();
   if (!admin) return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
 
@@ -29,7 +30,7 @@ export async function GET(request: NextRequest) {
       orderBy: [{ order: "asc" }, { createdAt: "desc" }],
     });
     return NextResponse.json({ screenshots });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }
@@ -81,7 +82,7 @@ export async function PUT(request: NextRequest) {
   try {
     const contentType = request.headers.get("content-type") || "";
     let id: string;
-    let data: any = {};
+    const data: Prisma.WinningScreenshotUpdateInput = {};
 
     if (contentType.includes("application/json")) {
       const json = await request.json();
@@ -149,7 +150,7 @@ export async function DELETE(request: NextRequest) {
 
     await prisma.winningScreenshot.delete({ where: { id } });
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }

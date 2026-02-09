@@ -15,7 +15,7 @@ export async function PUT(
 
     let meta = {};
     if (event.metadata) {
-        try { meta = JSON.parse(String(event.metadata)); } catch(_) {}
+        try { meta = JSON.parse(String(event.metadata)); } catch {}
     }
 
     await prisma.event.update({
@@ -26,7 +26,7 @@ export async function PUT(
     });
 
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: "Error" }, { status: 500 });
   }
 }

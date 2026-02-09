@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { authenticateAdmin, generateToken, setAdminCookie, createDefaultAdmin } from "@/lib/auth";
+import { authenticateAdmin, generateToken, setAdminCookie } from "@/lib/auth";
 
 export async function POST(request: NextRequest) {
   try {

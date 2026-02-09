@@ -26,7 +26,6 @@ const ENABLE_COPY_TRACKING = (process.env.NEXT_PUBLIC_ENABLE_COPY_TRACKING ?? ""
 
 import { PageTracker } from "@/components/PageTracker";
 import { FloatingNotifications } from "@/components/FloatingNotifications";
-import { FloatingSocialProof } from "@/components/FloatingSocialProof";
 
 export default async function Page() {
   const testimonials = await getActiveTestimonials();
@@ -300,7 +299,7 @@ export default async function Page() {
 
             <p className="text-xs text-zinc-600 max-w-lg leading-relaxed">
               © {new Date().getFullYear()} Méthode Certifiée. Tous droits réservés. <br />
-              Le contenu de ce site est à titre informatif uniquement. Les jeux d'argent comportent des risques. Jouez de manière responsable.
+              Le contenu de ce site est à titre informatif uniquement. Les jeux d&apos;argent comportent des risques. Jouez de manière responsable.
             </p>
           </div>
         </footer>

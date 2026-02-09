@@ -21,13 +21,13 @@ export async function GET() {
         let meta = {};
         try {
             meta = n.metadata ? JSON.parse(String(n.metadata)) : {};
-        } catch(e) {}
+        } catch {}
         
         return {
             id: n.id,
-            // @ts-ignore
+            // @ts-expect-error
             message: meta.message || "Notification",
-            // @ts-ignore
+            // @ts-expect-error
             level: meta.level || "info",
             createdAt: n.createdAt
         };

@@ -17,20 +17,20 @@ export async function GET() {
 
     const data = broadcasts.map(b => {
         let meta = {};
-        try { meta = b.metadata ? JSON.parse(String(b.metadata)) : {}; } catch(e) {}
+        try { meta = b.metadata ? JSON.parse(String(b.metadata)) : {}; } catch(_e) {}
         
         return {
             id: b.id,
-            // @ts-ignore
+            // @ts-expect-error
             message: meta.message || "Message",
-            // @ts-ignore
+            // @ts-expect-error
             level: meta.level || "info",
             createdAt: b.createdAt
         };
     });
 
     return NextResponse.json(data);
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }

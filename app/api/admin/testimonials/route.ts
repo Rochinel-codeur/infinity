@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAdminFromCookies } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 import { writeFile } from "fs/promises";
 import { join } from "path";
 import { v4 as uuidv4 } from "uuid";
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   const admin = await getAdminFromCookies();
   
   if (!admin) {
@@ -84,7 +85,7 @@ export async function PUT(request: NextRequest) {
   try {
     const contentType = request.headers.get("content-type") || "";
     let id: string;
-    let data: any = {};
+    const data: Prisma.TestimonialUpdateInput = {};
 
     if (contentType.includes("application/json")) {
       const json = await request.json();

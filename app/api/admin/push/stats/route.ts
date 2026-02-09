@@ -12,7 +12,7 @@ export async function GET() {
   try {
     const count = await prisma.pushSubscription.count();
     return NextResponse.json({ count });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
