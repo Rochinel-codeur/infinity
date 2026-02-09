@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface AdminPayload {
   id: string;
@@ -20,12 +20,32 @@ export function SettingsTab({ admin }: { admin: AdminPayload }) {
     setTimeout(() => setAlert(null), 3000);
   };
 
+  useEffect(() => {
+    // Fetch initial promo code
+    fetch("/api/admin/settings/promo").then(res => res.json()).then(data => {
+        if(data.code) setPromoCode(data.code);
+    });
+  }, []);
+
   const handleSave = async () => {
     setIsSaving(true);
-    // Simulate save - in production, save to database
-    await new Promise(r => setTimeout(r, 1000));
-    setIsSaving(false);
-    showAlert("success", "Paramètres enregistrés avec succès !");
+    try {
+      const res = await fetch("/api/admin/settings/promo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ promoCode }),
+      });
+      
+      if (res.ok) {
+         showAlert("success", "Code promo mis à jour !");
+      } else {
+         throw new Error("Failed");
+      }
+    } catch(e) {
+      showAlert("error", "Erreur lors de la mise à jour");
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const handleExportEvents = async () => {

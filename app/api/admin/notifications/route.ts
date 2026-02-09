@@ -20,17 +20,25 @@ export async function GET() {
       take: 20,
     });
 
-    const notifications = recentEvents.map(e => ({
-      id: e.id,
-      type: e.type === "code_copy" ? "success" : "info",
-      title: e.type === "code_copy" ? "Code copié !" : "Clic inscription",
-      message: `Un visiteur ${e.device === "mobile" ? "mobile" : "desktop"} a ${e.type === "code_copy" ? "copié le code" : "cliqué sur inscription"}`,
-      time: e.createdAt,
-      read: false,
-    }));
+    const notifications = recentEvents.map(e => {
+        let read = false;
+        try {
+            const meta = e.metadata ? JSON.parse(String(e.metadata)) : {};
+            if (meta.read) read = true;
+        } catch (_) {}
+
+        return {
+            id: e.id,
+            type: e.type === "code_copy" ? "success" : "info",
+            title: e.type === "code_copy" ? "Code copié !" : "Clic inscription",
+            message: `Un visiteur ${e.device === "mobile" ? "mobile" : "desktop"} a ${e.type === "code_copy" ? "copié le code" : "cliqué sur inscription"}`,
+            time: e.createdAt,
+            read,
+        };
+    });
 
     // Count unread
-    const unreadCount = notifications.length;
+    const unreadCount = notifications.filter(n => !n.read).length;
 
     return NextResponse.json({ notifications, unreadCount });
   } catch (error) {

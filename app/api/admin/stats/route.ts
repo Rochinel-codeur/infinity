@@ -120,6 +120,10 @@ export async function GET() {
     const totalCodeCopies = await prisma.event.count({ where: { type: "code_copy" } });
     const conversionRate = totalPageViews > 0 ? ((totalCodeCopies / totalPageViews) * 100).toFixed(1) : "0";
 
+    // Extra counts for Dashboard
+    const totalTestimonials = await prisma.testimonial.count();
+    const totalNotificationsSent = await prisma.event.count({ where: { type: "broadcast" } });
+
     return NextResponse.json({
       overview: {
         totalUsers,
@@ -131,6 +135,9 @@ export async function GET() {
         weekUsers,
         weekPageViews,
         monthUsers,
+        totalSubscribers: await prisma.pushSubscription.count(),
+        totalTestimonials,
+        totalNotificationsSent,
         conversionRate,
       },
       eventsByType: eventsByType.map(e => ({
