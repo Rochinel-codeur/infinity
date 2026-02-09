@@ -3,9 +3,6 @@ import { authenticateAdmin, generateToken, setAdminCookie, createDefaultAdmin } 
 
 export async function POST(request: NextRequest) {
   try {
-    // Ensure default admin exists
-    await createDefaultAdmin();
-
     const { email, password } = await request.json();
 
     if (!email || !password) {
