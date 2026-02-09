@@ -59,6 +59,14 @@ export function AdminHeader({ title, subtitle, onRefresh }: AdminHeaderProps) {
     setTimeout(() => setIsRefreshing(false), 500);
   };
 
+  const handleMarkAsRead = async (id: string) => {
+    setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: true } : n));
+    setUnreadCount(prev => Math.max(0, prev - 1));
+    try {
+        await fetch(`/api/admin/notifications/${id}/read`, { method: "PUT" });
+    } catch (e) { console.error(e); }
+  };
+
   const toggleTheme = () => {
     const newMode = !isDark;
     setIsDark(newMode);
@@ -143,7 +151,11 @@ export function AdminHeader({ title, subtitle, onRefresh }: AdminHeaderProps) {
                 ) : (
                   <div className="space-y-1">
                     {notifications.slice(0, 10).map((n) => (
-                      <div key={n.id} className="p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer">
+                      <div 
+                        key={n.id} 
+                        onClick={() => !n.read && handleMarkAsRead(n.id)}
+                        className={`p-3 rounded-xl transition-colors cursor-pointer relative ${n.read ? 'hover:bg-slate-50 dark:hover:bg-slate-800/50 opacity-70' : 'bg-indigo-50/50 dark:bg-indigo-900/20 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 font-medium'}`}
+                      >
                         <div className="flex items-start gap-3">
                           <span className={`mt-0.5 w-8 h-8 rounded-full flex items-center justify-center text-sm ${
                             n.type === "success" ? "bg-emerald-100 dark:bg-emerald-900/30" : 
@@ -154,7 +166,10 @@ export function AdminHeader({ title, subtitle, onRefresh }: AdminHeaderProps) {
                             {n.type === "success" ? "✓" : n.type === "warning" ? "⚠" : n.type === "error" ? "✕" : "ℹ"}
                           </span>
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-slate-900 dark:text-white">{n.title}</p>
+                            <div className="flex justify-between items-start">
+                                <p className={`text-sm ${n.read ? 'text-slate-900 dark:text-white' : 'text-indigo-900 dark:text-indigo-100 font-bold'}`}>{n.title}</p>
+                                {!n.read && <span className="w-2 h-2 rounded-full bg-blue-500"></span>}
+                            </div>
                             <p className="text-xs text-slate-500 truncate">{n.message}</p>
                             <p className="text-xs text-slate-400 mt-1">
                               {format(new Date(n.time), "HH:mm", { locale: fr })}

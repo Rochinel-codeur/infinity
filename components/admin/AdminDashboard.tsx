@@ -2,13 +2,15 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { format } from "date-fns";
-import { fr } from "date-fns/locale";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts";
 import { AdminSidebar } from "./AdminSidebar";
 import { AdminHeader } from "./AdminHeader";
 import { AnalyticsTab } from "./AnalyticsTab";
 import { UsersTab } from "./UsersTab";
 import { TestimonialsTab } from "./TestimonialsTab";
+import { ScreenshotsTab } from "./ScreenshotsTab";
+import { VideosTab } from "./VideosTab";
+import { PushTab } from "./PushTab";
 import { SettingsTab } from "./SettingsTab";
 
 interface AdminPayload {
@@ -29,6 +31,9 @@ interface Stats {
     weekUsers: number;
     weekPageViews: number;
     monthUsers: number;
+    totalSubscribers: number;
+    totalTestimonials: number;
+    totalNotificationsSent: number;
     conversionRate: string;
   };
   eventsByType: Array<{ type: string; count: number }>;
@@ -51,7 +56,9 @@ interface Stats {
   }>;
 }
 
-type TabType = "overview" | "analytics" | "users" | "testimonials" | "settings";
+// ... (skipping interface Stats)
+
+type TabType = "overview" | "analytics" | "users" | "screenshots" | "testimonials" | "videos" | "push" | "settings";
 
 export function AdminDashboard({ admin }: { admin: AdminPayload }) {
   const [activeTab, setActiveTab] = useState<TabType>("overview");
@@ -80,10 +87,14 @@ export function AdminDashboard({ admin }: { admin: AdminPayload }) {
   }, [fetchStats]);
 
   const tabTitles: Record<TabType, string> = {
+// ... (tabTitles)
     overview: "Vue d'ensemble",
     analytics: "Analytics",
     users: "Utilisateurs",
+    screenshots: "Captures (Marquee)",
     testimonials: "Témoignages",
+    videos: "Vidéos",
+    push: "Notifications Push",
     settings: "Paramètres"
   };
 
@@ -117,7 +128,10 @@ export function AdminDashboard({ admin }: { admin: AdminPayload }) {
           {activeTab === "overview" && <OverviewTab stats={stats} isLoading={isLoading} />}
           {activeTab === "analytics" && <AnalyticsTab />}
           {activeTab === "users" && <UsersTab />}
+          {activeTab === "screenshots" && <ScreenshotsTab />}
           {activeTab === "testimonials" && <TestimonialsTab />}
+          {activeTab === "videos" && <VideosTab />}
+          {activeTab === "push" && <PushTab />}
           {activeTab === "settings" && <SettingsTab admin={admin} />}
         </div>
       </main>
@@ -137,9 +151,10 @@ function OverviewTab({ stats, isLoading }: { stats: Stats | null; isLoading: boo
   if (!stats) return null;
 
   const statCards = [
-    { label: "Utilisateurs", value: stats.overview.totalUsers, icon: "👥", gradient: "from-indigo-500 to-purple-500", growth: 12 },
+    { label: "Avis Reçus", value: stats.overview.totalTestimonials, icon: "💬", gradient: "from-indigo-500 to-purple-500" },
     { label: "Vues aujourd'hui", value: stats.overview.todayPageViews, icon: "👁️", gradient: "from-pink-500 to-rose-500", growth: 8 },
     { label: "Copies du code", value: stats.overview.todayCodeCopies, icon: "📋", gradient: "from-emerald-500 to-teal-500", growth: 24 },
+    { label: "Notifs Envoyées", value: stats.overview.totalNotificationsSent, icon: "🚀", gradient: "from-indigo-500 to-blue-500" },
     { label: "Taux conversion", value: `${stats.overview.conversionRate}%`, icon: "🎯", gradient: "from-amber-500 to-orange-500" },
   ];
 
@@ -167,7 +182,7 @@ function OverviewTab({ stats, isLoading }: { stats: Stats | null; isLoading: boo
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="admin-glass rounded-2xl p-6 admin-chart-container">
           <h3 className="font-semibold text-slate-900 dark:text-white mb-4">Activité (7 jours)</h3>
-          <div className="h-64">
+          <div className="h-64 w-full relative">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={stats.dailyStats}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" opacity={0.3} />
@@ -183,7 +198,7 @@ function OverviewTab({ stats, isLoading }: { stats: Stats | null; isLoading: boo
 
         <div className="admin-glass rounded-2xl p-6 admin-chart-container">
           <h3 className="font-semibold text-slate-900 dark:text-white mb-4">Événements</h3>
-          <div className="h-64">
+          <div className="h-64 w-full relative">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={stats.eventsByType}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" opacity={0.3} />

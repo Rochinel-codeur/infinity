@@ -1,12 +1,11 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
   "/page": "app/page.js",
   "/api/admin/notifications/route": "app/api/admin/notifications/route.js",
   "/api/admin/stats/route": "app/api/admin/stats/route.js",
-  "/api/admin/analytics/route": "app/api/admin/analytics/route.js",
-  "/api/admin/users/route": "app/api/admin/users/route.js",
-  "/api/admin/testimonials/route": "app/api/admin/testimonials/route.js",
   "/api/track/route": "app/api/track/route.js",
-  "/admin/page": "app/admin/page.js",
+  "/api/admin/notifications/[id]/read/route": "app/api/admin/notifications/[id]/read/route.js",
+  "/api/admin/screenshots/route": "app/api/admin/screenshots/route.js",
+  "/api/admin/testimonials/route": "app/api/admin/testimonials/route.js",
+  "/api/admin/videos/route": "app/api/admin/videos/route.js",
   "/admin/dashboard/page": "app/admin/dashboard/page.js"
 }
