@@ -33,9 +33,9 @@ export function FinalCta({
           </h2>
           
           <p className="text-base sm:text-lg text-white/90 max-w-md mx-auto">
-            Télécharge l'application, puis utilise le code promo{" "}
+            Télécharge l&apos;application, puis utilise le code promo{" "}
             <span className="font-bold bg-white/20 px-2 py-0.5 rounded">{promoCode}</span>{" "}
-            à l'inscription.
+            à l&apos;inscription.
           </p>
         </div>
 
@@ -48,7 +48,7 @@ export function FinalCta({
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
-            Télécharger l'app
+            Télécharger l&apos;app
           </a>
           
           <a
@@ -61,7 +61,7 @@ export function FinalCta({
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
-            S'inscrire maintenant
+            S&apos;inscrire maintenant
           </a>
         </div>
 

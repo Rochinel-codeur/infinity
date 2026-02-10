@@ -44,7 +44,8 @@ export function PromoCodeBlock({ code, enableTracking, sectionId }: PromoCodeBlo
       setCopied(true);
       setCanCopy(false);
       setTimeout(() => setCanCopy(true), 1000);
-    } catch (err) {
+    } catch (e: unknown) {
+      console.error(e);
       setCopied(true);
     }
   };

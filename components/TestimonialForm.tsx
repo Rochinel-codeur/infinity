@@ -32,9 +32,9 @@ export function TestimonialForm() {
 
       setIsSuccess(true);
       e.currentTarget.reset();
-    } catch (err: any) {
-      console.error(err);
-      setError(err.message || "Une erreur est survenue. Réessayez.");
+    } catch (_err: unknown) {
+      console.error(_err);
+      setError((_err as Error).message || "Une erreur est survenue. Réessayez.");
     } finally {
       setIsSubmitting(false);
     }
@@ -88,7 +88,7 @@ export function TestimonialForm() {
                   <input name="name" type="text" required className="w-full bg-black border border-zinc-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500" placeholder="Ex: Jean P." />
                 </div>
                 <div>
-                   <label className="block text-sm font-medium text-zinc-400 mb-1">Preuve (Capture d'écran)</label>
+                   <label className="block text-sm font-medium text-zinc-400 mb-1">Preuve (Capture d&apos;écran)</label>
                    <input 
                      ref={fileInputRef}
                      name="image" 

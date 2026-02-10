@@ -44,7 +44,7 @@ export function HowToVideo({
           playsInline
           preload="metadata"
           poster={poster}
-          aria-label="Vidéo : comment s'inscrire"
+          aria-label="Vidéo : comment s&apos;inscrire"
         >
           <source src={videoSrc} type="video/mp4" />
           La vidéo ne se charge pas. Vérifie ta connexion ou réessaie plus tard.
@@ -68,7 +68,7 @@ export function HowToVideo({
       </div>
 
       <p className="mt-3 text-xs text-zinc-400 dark:text-zinc-500">
-        💡 Si la vidéo ne s'affiche pas, ouvre-la dans un autre navigateur ou réactualise la page.
+        💡 Si la vidéo ne s&apos;affiche pas, ouvre-la dans un autre navigateur ou réactualise la page.
       </p>
     </section>
   );

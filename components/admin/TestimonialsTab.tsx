@@ -34,6 +34,7 @@ export function TestimonialsTab() {
   }>({
     name: "", text: "", date: new Date().toISOString().split("T")[0], source: "WhatsApp", imageUrl: "", rating: 5, file: null
   });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [alert, setAlert] = useState<{ type: string; message: string } | null>(null);
 
   useEffect(() => { fetchTestimonials(); }, []);
@@ -45,7 +46,7 @@ export function TestimonialsTab() {
         const data = await res.json();
         setTestimonials(data.testimonials || []);
       }
-    } catch (e) { console.error(e); }
+    } catch (e: unknown) { console.error("Error fetching testimonials", e); }
     finally { setIsLoading(false); }
   };
 
@@ -54,6 +55,7 @@ export function TestimonialsTab() {
     setTimeout(() => setAlert(null), 3000);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -78,7 +80,7 @@ export function TestimonialsTab() {
         fetchTestimonials();
         showAlert("success", editingId ? "Capture modifiée !" : "Capture ajoutée !");
       }
-    } catch (e) { showAlert("error", "Erreur lors de l'enregistrement"); }
+    } catch (e: unknown) { console.error(e); showAlert("error", "Erreur lors de l'enregistrement"); }
   };
 
   const toggleActive = async (id: string, isActive: boolean) => {
@@ -89,7 +91,7 @@ export function TestimonialsTab() {
       });
       fetchTestimonials();
       showAlert("success", isActive ? "Désactivé" : "Activé");
-    } catch (e) { console.error(e); }
+    } catch (e: unknown) { console.error("Error toggling active status", e); }
   };
 
   const deleteTestimonial = async (id: string) => {
@@ -98,7 +100,7 @@ export function TestimonialsTab() {
       await fetch(`/api/admin/testimonials?id=${id}`, { method: "DELETE" });
       fetchTestimonials();
       showAlert("success", "Supprimé");
-    } catch (e) { console.error(e); }
+    } catch (e: unknown) { console.error("Error deleting testimonial", e); }
   };
 
   const startEdit = (t: Testimonial) => {

@@ -62,7 +62,7 @@ export function VerificationComments() {
             </div>
             
             <p className="text-sm text-zinc-400 leading-relaxed">
-              "{comment.text}"
+              &quot;{comment.text}&quot;
             </p>
           </div>
         ))}

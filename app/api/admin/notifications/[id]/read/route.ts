@@ -15,7 +15,8 @@ export async function PUT(
 
     let meta = {};
     if (event.metadata) {
-        try { meta = JSON.parse(String(event.metadata)); } catch {}
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        try { meta = JSON.parse(String(event.metadata)); } catch (_e) {}
     }
 
     await prisma.event.update({
@@ -26,7 +27,8 @@ export async function PUT(
     });
 
     return NextResponse.json({ success: true });
-  } catch (_error) {
+  } catch (e: unknown) {
+    console.error(e);
     return NextResponse.json({ error: "Error" }, { status: 500 });
   }
 }

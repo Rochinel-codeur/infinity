@@ -4,12 +4,11 @@ import { useEffect, useState } from "react";
 import { AnimatedCounter } from "./AnimatedCounter";
 
 interface HeroSectionProps {
-  title: string;
   subtitle: string;
   appliedCount: number;
 }
 
-export function HeroSection({ title, subtitle, appliedCount }: HeroSectionProps) {
+export function HeroSection({ subtitle, appliedCount }: HeroSectionProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

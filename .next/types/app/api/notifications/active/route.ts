@@ -1,4 +1,4 @@
-// File: /home/rochinel/Documents/prince/app/api/notifications/active/route.ts
+// File: /home/guigui2401/Documents/Dev/infinity/app/api/notifications/active/route.ts
 import * as entry from '../../../../../../app/api/notifications/active/route.js'
 import type { NextRequest } from 'next/server.js'
 

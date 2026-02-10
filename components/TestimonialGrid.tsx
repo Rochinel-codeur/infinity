@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-
 interface Testimonial {
   id: string;
   name: string;
@@ -26,7 +24,7 @@ export function TestimonialGrid({ testimonials }: TestimonialGridProps) {
     <div className="max-w-7xl mx-auto px-4 py-16">
       <div className="flex items-center gap-2 mb-8">
         <div className="w-1 h-6 bg-indigo-500 rounded-full"></div>
-        <h3 className="text-xl font-bold text-white">Retours d'expérience vérifiés</h3>
+        <h3 className="text-xl font-bold text-white">Retours d&apos;expérience vérifiés</h3>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -60,7 +58,7 @@ export function TestimonialGrid({ testimonials }: TestimonialGridProps) {
             </div>
 
             <p className="text-zinc-300 text-sm leading-relaxed mb-4">
-                "{t.text}"
+                &quot;{t.text}&quot;
             </p>
 
             {/* If there is an image URL (screenshot), maybe show a preview? 

@@ -41,7 +41,8 @@ export function SettingsTab({ admin }: { admin: AdminPayload }) {
       } else {
          throw new Error("Failed");
       }
-    } catch(e) {
+    } catch(e: unknown) {
+      console.error(e);
       showAlert("error", "Erreur lors de la mise à jour");
     } finally {
       setIsSaving(false);
@@ -61,8 +62,9 @@ export function SettingsTab({ admin }: { admin: AdminPayload }) {
         window.URL.revokeObjectURL(url);
         showAlert("success", "Export des événements téléchargé !");
       }
-    } catch (e) {
-      showAlert("error", "Erreur lors de l'export");
+    } catch (e: unknown) {
+      console.error(e);
+      showAlert("error", "Erreur lors de l&apos;export");
     }
   };
 
@@ -113,9 +115,9 @@ export function SettingsTab({ admin }: { admin: AdminPayload }) {
             <p className="text-xs text-slate-400 mt-1">Ce code sera affiché sur la page principale</p>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Nombre d'utilisateurs affiché</label>
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Nombre d&apos;utilisateurs affiché</label>
             <input type="text" value={appliedCount} onChange={(e) => setAppliedCount(e.target.value)} className="admin-input" />
-            <p className="text-xs text-slate-400 mt-1">Affiché dans "Déjà X personnes l'ont appliquée"</p>
+            <p className="text-xs text-slate-400 mt-1">Affiché dans &quot;Déjà X personnes l&apos;ont appliquée&quot;</p>
           </div>
           <button onClick={handleSave} disabled={isSaving} className="admin-btn-primary flex items-center gap-2">
             {isSaving ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> : "💾"}

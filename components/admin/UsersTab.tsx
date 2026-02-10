@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { format } from "date-fns";
 
 interface User {
@@ -23,11 +23,7 @@ export function UsersTab() {
   const [totalPages, setTotalPages] = useState(1);
   const [isExporting, setIsExporting] = useState(false);
 
-  useEffect(() => {
-    fetchUsers();
-  }, [page, search]);
-
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     setIsLoading(true);
     try {
       const params = new URLSearchParams({ page: String(page), limit: "20" });
@@ -43,7 +39,11 @@ export function UsersTab() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [page, search]);
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
 
   const handleExport = async () => {
     setIsExporting(true);

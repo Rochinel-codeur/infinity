@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
+  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
   AreaChart, Area, PieChart, Pie, Cell
 } from "recharts";
 
@@ -32,8 +32,6 @@ interface AnalyticsData {
   browsers: Array<{ name: string; count: number }>;
   hourlyActivity: Array<{ hour: number; label: string; events: number }>;
 }
-
-const COLORS = ["#6366f1", "#ec4899", "#14b8a6", "#f59e0b", "#8b5cf6"];
 
 export function AnalyticsTab() {
   const [data, setData] = useState<AnalyticsData | null>(null);
@@ -66,13 +64,6 @@ export function AnalyticsTab() {
   }
 
   if (!data) return null;
-
-  const funnelData = [
-    { name: "Vues", value: data.funnel.views, fill: "#6366f1" },
-    { name: "Copies", value: data.funnel.copies, fill: "#8b5cf6" },
-    { name: "Downloads", value: data.funnel.downloads, fill: "#ec4899" },
-    { name: "Inscriptions", value: data.funnel.signups, fill: "#14b8a6" },
-  ];
 
   return (
     <div className="space-y-6">
@@ -116,8 +107,8 @@ export function AnalyticsTab() {
               { label: "Copies du code", value: data.funnel.copies, rate: data.funnel.copyRate, color: "bg-purple-500" },
               { label: "Téléchargements", value: data.funnel.downloads, rate: data.funnel.downloadRate, color: "bg-pink-500" },
               { label: "Inscriptions", value: data.funnel.signups, rate: data.funnel.signupRate, color: "bg-teal-500" },
-            ].map((step, i) => (
-              <div key={i}>
+            ].map((step, _i) => (
+              <div key={_i}>
                 <div className="flex justify-between text-sm mb-1">
                   <span className="text-slate-600 dark:text-slate-300">{step.label}</span>
                   <span className="font-medium text-slate-900 dark:text-white">{step.value} ({step.rate}%)</span>
@@ -200,7 +191,7 @@ export function AnalyticsTab() {
       <div className="admin-glass rounded-2xl p-6">
         <h3 className="font-semibold text-slate-900 dark:text-white mb-4">Navigateurs</h3>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          {data.browsers.slice(0, 4).map((b, i) => (
+          {data.browsers.slice(0, 4).map((b) => (
             <div key={b.name} className="text-center p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50">
               <p className="text-2xl font-bold text-slate-900 dark:text-white">{b.count}</p>
               <p className="text-sm text-slate-500">{b.name}</p>

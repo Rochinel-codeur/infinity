@@ -21,7 +21,7 @@ async function uploadFile(file: File) {
   }
 }
 
-export async function GET(_request: NextRequest) {
+export async function GET() {
   const admin = await getAdminFromCookies();
   if (!admin) return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
 
@@ -30,7 +30,8 @@ export async function GET(_request: NextRequest) {
       orderBy: [{ order: "asc" }, { createdAt: "desc" }],
     });
     return NextResponse.json({ screenshots });
-  } catch (_error) {
+  } catch (e: unknown) {
+    console.error(e);
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }
@@ -69,8 +70,8 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json({ screenshot });
-  } catch (error) {
-    console.error("Create error", error);
+  } catch (e: unknown) {
+    console.error("Create error", e);
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }
@@ -133,8 +134,8 @@ export async function PUT(request: NextRequest) {
     });
 
     return NextResponse.json({ screenshot });
-  } catch (error) {
-    console.error("Update error", error);
+  } catch (e: unknown) {
+    console.error("Update error", e);
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }
@@ -150,7 +151,8 @@ export async function DELETE(request: NextRequest) {
 
     await prisma.winningScreenshot.delete({ where: { id } });
     return NextResponse.json({ success: true });
-  } catch (_error) {
+  } catch (e: unknown) {
+    console.error(e);
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }

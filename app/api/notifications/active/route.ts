@@ -25,9 +25,9 @@ export async function GET() {
         
         return {
             id: n.id,
-            // @ts-expect-error
+            // @ts-expect-error: metadata type discrepancy
             message: meta.message || "Notification",
-            // @ts-expect-error
+            // @ts-expect-error: metadata type discrepancy
             level: meta.level || "info",
             createdAt: n.createdAt
         };

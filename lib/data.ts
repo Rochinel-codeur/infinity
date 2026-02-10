@@ -43,7 +43,8 @@ export async function getPromoCode() {
       where: { isActive: true },
     });
     return promo?.code || "BCC123";
-  } catch (error) {
+  } catch (e: unknown) {
+    console.error(e);
     return "BCC123";
   }
 }

@@ -44,7 +44,7 @@ export function TestimonialMiniCard({ testimonial }: { testimonial: Testimonial 
         {/* Message style WhatsApp */}
         <div className="whatsapp-bubble">
           <p className="text-sm text-zinc-800 dark:text-zinc-100 leading-relaxed">
-            "{testimonial.text}"
+            &quot;{testimonial.text}&quot;
           </p>
         </div>
 

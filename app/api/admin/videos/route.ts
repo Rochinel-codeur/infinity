@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma";
 import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 
-export async function GET(_request: NextRequest) {
+export async function GET() {
   const admin = await getAdminFromCookies();
   
   if (!admin) {
@@ -17,8 +17,8 @@ export async function GET(_request: NextRequest) {
     });
 
     return NextResponse.json({ videos });
-  } catch (error) {
-    console.error("Videos fetch error:", error);
+  } catch (_error) {
+    console.error("Videos fetch error:", _error);
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }
@@ -70,8 +70,8 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json({ video });
-  } catch (error) {
-    console.error("Video create error:", error);
+  } catch (_error) {
+    console.error("Video create error:", _error);
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }
@@ -98,8 +98,8 @@ export async function PUT(request: NextRequest) {
     });
 
     return NextResponse.json({ video });
-  } catch (error) {
-    console.error("Video update error:", error);
+  } catch (_error) {
+    console.error("Video update error:", _error);
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }
@@ -122,8 +122,8 @@ export async function DELETE(request: NextRequest) {
     await prisma.video.delete({ where: { id } });
 
     return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error("Video delete error:", error);
+  } catch (_error) {
+    console.error("Video delete error:", _error);
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }

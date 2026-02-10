@@ -41,7 +41,7 @@ export function VideosTab() {
         const data = await res.json();
         setVideos(data.videos || []);
       }
-    } catch (e) { console.error(e); }
+    } catch (e: unknown) { console.error("Error fetching videos", e); }
     finally { setIsLoading(false); }
   };
 
@@ -75,7 +75,8 @@ export function VideosTab() {
       } else {
         showAlert("error", "Erreur lors de l'ajout");
       }
-    } catch (error) {
+    } catch (e: unknown) {
+      console.error(e);
       showAlert("error", "Erreur serveur");
     } finally {
       setIsUploading(false);
@@ -91,7 +92,7 @@ export function VideosTab() {
       });
       fetchVideos();
       showAlert("success", isActive ? "Vidéo désactivée" : "Vidéo activée");
-    } catch (e) { console.error(e); }
+    } catch (e: unknown) { console.error("Error toggling active status", e); }
   };
 
   const deleteVideo = async (id: string) => {
@@ -100,7 +101,7 @@ export function VideosTab() {
       await fetch(`/api/admin/videos?id=${id}`, { method: "DELETE" });
       fetchVideos();
       showAlert("success", "Vidéo supprimée");
-    } catch (e) { console.error(e); }
+    } catch (e: unknown) { console.error("Error deleting video", e); }
   };
 
   return (
@@ -118,7 +119,7 @@ export function VideosTab() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
           <div>
             <h2 className="text-xl font-bold text-slate-900 dark:text-white">Gestion des Vidéos</h2>
-            <p className="text-sm text-slate-500">Ajoutez et gérez les vidéos visibles sur la page d'accueil</p>
+            <p className="text-sm text-slate-500">Ajoutez et gérez les vidéos visibles sur la page d&apos;accueil</p>
           </div>
           <button 
             onClick={() => setShowForm(!showForm)}

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 
 const NAMES = ["Jean K.", "Paul M.", "Sarah L.", "David B.", "Eric T.", "Sophie A."];
 const ACTIONS = ["vient de gagner 50.000 XAF", "a rejoint la méthode", "a validé son coupon", "a retiré 120.000 XAF"];

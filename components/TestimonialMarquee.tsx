@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { WhatsAppScreenshot } from "@/components/WhatsAppScreenshot";
 
 interface Screenshot {
@@ -29,7 +28,7 @@ export function TestimonialMarquee({ testimonials = [], screenshots = [] }: Test
   const useScreenshots = screenshots && screenshots.length > 0;
   
   // If no data provided at all (neither screenshots nor testimonials), use dummy data
-  let displayItems: any[] = [];
+  let displayItems: (Screenshot | Testimonial)[] = [];
   
   if (useScreenshots) {
       displayItems = screenshots;

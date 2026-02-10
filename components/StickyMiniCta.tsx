@@ -12,14 +12,12 @@ export function StickyMiniCta({
   action: string;
 }) {
   const [isVisible, setIsVisible] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       // Show after scrolling 300px
       const shouldShow = window.scrollY > 300;
       setIsVisible(shouldShow);
-      setIsScrolled(window.scrollY > 100);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -51,7 +49,7 @@ export function StickyMiniCta({
                   {label}
                 </p>
                 <p className="text-xs text-zinc-500 dark:text-zinc-400 hidden sm:block">
-                  Copie-le avant de t'inscrire
+                  Copie-le avant de t&apos;inscrire
                 </p>
               </div>
             </div>

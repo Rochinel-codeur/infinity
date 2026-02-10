@@ -176,7 +176,6 @@ export default async function Page() {
         {/* TUTORIAL SECTION */}
         <RegistrationTutorial 
           videoUrl={tutorialVideo?.url}
-          videoThumbnail={tutorialVideo?.thumbnailUrl}
         />
 
         {/* VIDEO SECTION (Visual Proof) */}
@@ -218,7 +217,7 @@ export default async function Page() {
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">Commencer Maintenant</span>
               </h2>
               <p className="text-zinc-400 mb-10 leading-relaxed text-lg max-w-md">
-                Accédez à toutes les astuces, suivez les mises à jour en temps réel et sécurisez vos gains. L'application est indispensable pour appliquer la méthode.
+                Accédez à toutes les astuces, suivez les mises à jour en temps réel et sécurisez vos gains. L&apos;application est indispensable pour appliquer la méthode.
               </p>
               
               <DownloadButtons 
@@ -307,7 +306,7 @@ export default async function Page() {
       </main>
 
       {/* Sticky Mini CTA */}
-      <StickyMiniCta href="#download" label="Obtenir l'App" action="Go" />
+      <StickyMiniCta href="#download" label="Obtenir l&apos;App" action="Go" />
       
     </div>
   );

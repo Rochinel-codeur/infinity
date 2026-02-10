@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useState } from "react";
 
 interface Video {
   id: string;
@@ -23,7 +23,8 @@ interface VideoSectionProps {
 }
 
 import dynamic from "next/dynamic";
-const ReactPlayer = dynamic(() => import("react-player"), { ssr: false }) as unknown as React.ComponentType<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ReactPlayer: any = dynamic(() => import("react-player"), { ssr: false });
 
 // Internal Video Card Component
 // Internal Video Card Component
@@ -37,7 +38,7 @@ function VideoCard({ video, spanFull }: { video: Video; spanFull?: boolean }) {
         const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
         const match = url.match(regExp);
         return (match && match[2].length === 11) ? match[2] : null;
-    } catch(e) { return null; }
+    } catch(e: unknown) { console.error(e); return null; }
   };
 
   const ytId = getYTId(video.url);
@@ -85,7 +86,7 @@ function VideoCard({ video, spanFull }: { video: Video; spanFull?: boolean }) {
                         playing={true}
                         muted={true}
                         playsinline={true}
-                        onError={(e: any) => {
+                        onError={(e: unknown) => {
                             console.error("Video Error:", e);
                             setHasError(true);
                         }}
@@ -126,7 +127,7 @@ export function VideoSection({ videos = [], testimonials = [] }: VideoSectionPro
       {/* ... Video Title and Grid ... */}
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-          Comment S'inscrire & <span className="text-blue-500">Gagner</span>
+          Comment S&apos;inscrire & <span className="text-blue-500">Gagner</span>
         </h2>
         <p className="text-zinc-400 max-w-2xl mx-auto">
           Suivez le guide vidéo pour créer votre compte et découvrez comment nos membres valident leurs gains.
@@ -145,7 +146,7 @@ export function VideoSection({ videos = [], testimonials = [] }: VideoSectionPro
       {/* Testimonials Header */}
       <div className="text-center mt-32 mb-12">
         <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-          Retours d'Expérience <span className="text-blue-500">Vérifiés</span>
+          Retours d&apos;Expérience <span className="text-blue-500">Vérifiés</span>
         </h2>
         <p className="text-zinc-400 max-w-2xl mx-auto">
           La satisfaction de nos membres est notre priorité absolue. Découvrez leurs avis.
@@ -190,7 +191,7 @@ export function VideoSection({ videos = [], testimonials = [] }: VideoSectionPro
             {/* Text Content */}
             <div className="relative flex-grow">
                 <p className="text-zinc-300 text-sm leading-relaxed italic pl-2 border-l-2 border-blue-500/30">
-                "{item.text}"
+                &quot;{item.text}&quot;
                 </p>
             </div>
             

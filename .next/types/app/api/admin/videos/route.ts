@@ -1,4 +1,4 @@
-// File: /home/rochinel/Documents/prince/app/api/admin/videos/route.ts
+// File: /home/guigui2401/Documents/Dev/infinity/app/api/admin/videos/route.ts
 import * as entry from '../../../../../../app/api/admin/videos/route.js'
 import type { NextRequest } from 'next/server.js'
 

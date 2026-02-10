@@ -5,8 +5,12 @@ import webpush from "web-push";
 import { getAdminFromCookies } from "@/lib/auth";
 
 // Configure Web Push (using dummy keys if not present, user should set them)
-const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || "BGt6...";
-const vapidPrivateKey = process.env.VAPID_PRIVATE_KEY || "v1...";
+const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+const vapidPrivateKey = process.env.VAPID_PRIVATE_KEY;
+
+if (!vapidPublicKey || !vapidPrivateKey) {
+  throw new Error("VAPID keys are not set. Please set NEXT_PUBLIC_VAPID_PUBLIC_KEY and VAPID_PRIVATE_KEY environment variables.");
+}
 
 webpush.setVapidDetails(
   "mailto:admin@methode-certifiee.com",

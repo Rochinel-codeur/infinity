@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
     // Get client info from headers
     const userAgent = request.headers.get("user-agent") || "";
     const referer = request.headers.get("referer") || "";
-    const forwardedFor = request.headers.get("x-forwarded-for");
+    // const forwardedFor = request.headers.get("x-forwarded-for");
     // const ip = forwardedFor?.split(",")[0] || "unknown";
     
     // Detect device type

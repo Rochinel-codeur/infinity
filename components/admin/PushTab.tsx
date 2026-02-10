@@ -24,7 +24,8 @@ export function PushTab() {
     try {
         const res = await fetch("/api/admin/broadcast/history");
         if (res.ok) setHistory(await res.json());
-    } catch(e) {}
+    } // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    catch(_e) {}
   };
 
   const handleSend = async (e: React.FormEvent) => {
@@ -44,9 +45,10 @@ export function PushTab() {
         setMessage("");
         fetchHistory(); // Refresh history
       } else {
-        throw new Error("Erreur d'envoi");
+        throw new Error("Erreur d&apos;envoi");
       }
-    } catch (e) {
+    } catch (e: unknown) {
+      console.error(e);
       setAlert({ type: "error", message: "Erreur lors de la création." });
     } finally {
       setIsSending(false);
@@ -76,7 +78,7 @@ export function PushTab() {
          </div>
          
          <p className="mb-6 text-slate-500 dark:text-slate-400 text-sm">
-            Ces messages s'affichent sous forme de bulles flottantes sur le site de tous les visiteurs pendant 24h.
+            Ces messages s&apos;affichent sous forme de bulles flottantes sur le site de tous les visiteurs pendant 24h.
          </p>
 
          <form onSubmit={handleSend} className="space-y-4 max-w-xl">
@@ -143,7 +145,7 @@ export function PushTab() {
                     </div>
                 </div>
             </div>
-            <p className="text-xs text-center text-slate-400 mt-4">C'est exactement ce que verront vos visiteurs.</p>
+            <p className="text-xs text-center text-slate-400 mt-4">C&apos;est exactement ce que verront vos visiteurs.</p>
         </div>
 
         {/* History List */}

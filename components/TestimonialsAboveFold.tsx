@@ -3,13 +3,11 @@ import { TestimonialMiniCard } from "@/components/TestimonialMiniCard";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 
 export function TestimonialsAboveFold({
-  title,
   facebookHint,
   appliedCount,
   testimonials,
   hideHeader = false
 }: {
-  title: string;
   facebookHint: string;
   appliedCount: number;
   testimonials: Testimonial[];
@@ -38,7 +36,7 @@ export function TestimonialsAboveFold({
                 </svg>
                 Déjà{" "}
                 <AnimatedCounter end={appliedCount} duration={2500} className="font-bold" />
-                {" "}personnes l'ont appliquée
+                {" "}personnes l&apos;ont appliquée
               </span>
             </div>
           </div>

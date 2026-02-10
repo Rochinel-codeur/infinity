@@ -17,20 +17,22 @@ export async function GET() {
 
     const data = broadcasts.map(b => {
         let meta = {};
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         try { meta = b.metadata ? JSON.parse(String(b.metadata)) : {}; } catch(_e) {}
         
         return {
             id: b.id,
-            // @ts-expect-error
+            // @ts-expect-error: metadata type discrepancy
             message: meta.message || "Message",
-            // @ts-expect-error
+            // @ts-expect-error: metadata type discrepancy
             level: meta.level || "info",
             createdAt: b.createdAt
         };
     });
 
     return NextResponse.json(data);
-  } catch (_error) {
+  } catch (e: unknown) {
+    console.error(e);
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }

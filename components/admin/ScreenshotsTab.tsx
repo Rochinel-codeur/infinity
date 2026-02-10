@@ -38,7 +38,7 @@ export function ScreenshotsTab() {
         const data = await res.json();
         setItems(data.screenshots || []);
       }
-    } catch (e) { console.error(e); }
+    } catch (e: unknown) { console.error("Error fetching items", e); }
   };
 
   const showAlert = (type: string, message: string) => {
@@ -70,7 +70,7 @@ export function ScreenshotsTab() {
         fetchItems();
         showAlert("success", "Capture enregistrée !");
       }
-    } catch (e) { showAlert("error", "Erreur d'enregistrement"); }
+    } catch (e: unknown) { console.error(e); showAlert("error", "Erreur d'enregistrement"); }
   };
 
   const toggleActive = async (id: string, isActive: boolean) => {
@@ -80,7 +80,7 @@ export function ScreenshotsTab() {
         body: JSON.stringify({ id, isActive: !isActive })
       });
       fetchItems();
-    } catch (e) { console.error(e); }
+    } catch (e: unknown) { console.error("Error toggling active status", e); }
   };
 
   const deleteItem = async (id: string) => {
@@ -88,7 +88,7 @@ export function ScreenshotsTab() {
     try {
       await fetch(`/api/admin/screenshots?id=${id}`, { method: "DELETE" });
       fetchItems();
-    } catch (e) { console.error(e); }
+    } catch (e: unknown) { console.error("Error deleting item", e); }
   };
 
   const startEdit = (item: Screenshot) => {
@@ -191,7 +191,7 @@ export function ScreenshotsTab() {
                          amount={item.amount}
                          time={item.time}
                          imageUrl={item.imageUrl}
-                         type={item.type as any}
+                         type={item.type as "win" | "thanks" | "generic"}
                      />
                  </div>
 

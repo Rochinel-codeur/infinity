@@ -6,7 +6,7 @@ import { writeFile } from "fs/promises";
 import { join } from "path";
 import { v4 as uuidv4 } from "uuid";
 
-export async function GET(_request: NextRequest) {
+export async function GET() {
   const admin = await getAdminFromCookies();
   
   if (!admin) {
@@ -19,8 +19,8 @@ export async function GET(_request: NextRequest) {
     });
 
     return NextResponse.json({ testimonials });
-  } catch (error) {
-    console.error("Testimonials fetch error:", error);
+  } catch (_error) {
+    console.error("Testimonials fetch error:", _error);
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }
@@ -72,8 +72,8 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json({ testimonial });
-  } catch (error) {
-    console.error("Testimonial create error:", error);
+  } catch (_error) {
+    console.error("Testimonial create error:", _error);
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }
@@ -138,8 +138,8 @@ export async function PUT(request: NextRequest) {
     });
 
     return NextResponse.json({ testimonial });
-  } catch (error) {
-    console.error("Testimonial update error:", error);
+  } catch (_error) {
+    console.error("Testimonial update error:", _error);
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }
@@ -162,8 +162,8 @@ export async function DELETE(request: NextRequest) {
     await prisma.testimonial.delete({ where: { id } });
 
     return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error("Testimonial delete error:", error);
+  } catch (_error) {
+    console.error("Testimonial delete error:", _error);
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }

@@ -4,13 +4,13 @@ import { useState } from "react";
 
 interface RegistrationTutorialProps {
   videoUrl?: string | null;
-  videoThumbnail?: string | null;
 }
 
 import dynamic from "next/dynamic";
-const ReactPlayer = dynamic(() => import("react-player"), { ssr: false }) as unknown as React.ComponentType<any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ReactPlayer = dynamic(() => import("react-player"), { ssr: false }) as any;
 
-export function RegistrationTutorial({ videoUrl, videoThumbnail }: RegistrationTutorialProps) {
+export function RegistrationTutorial({ videoUrl }: RegistrationTutorialProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasError, setHasError] = useState(false);
   const src = videoUrl || "/media/registration-tutorial.mp4";
@@ -23,7 +23,7 @@ export function RegistrationTutorial({ videoUrl, videoThumbnail }: RegistrationT
 
         <div className="max-w-7xl mx-auto px-4 relative z-10">
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-16 text-center leading-tight">
-                Comment s'inscrire <br />
+                Comment s&apos;inscrire <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">étape par étape</span>
             </h2>
 
@@ -92,10 +92,9 @@ export function RegistrationTutorial({ videoUrl, videoThumbnail }: RegistrationT
                                             playing={true} 
                                             muted={true}
                                             onError={() => setHasError(true)}
-                                            config={{
-                                                youtube: { playerVars: { showinfo: 1, autoplay: 1, mute: 1 } },
-                                            }}
-                                        />
+                                                                                        config={{
+                                                                                            youtube: { },
+                                                                                        }}                                        />
                                     )
                                 )}
                              </div>
@@ -116,7 +115,7 @@ export function RegistrationTutorial({ videoUrl, videoThumbnail }: RegistrationT
                             1
                         </div>
                         <div>
-                            <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">Téléchargez l'app 1xBet</h3>
+                            <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">Téléchargez l&apos;app 1xBet</h3>
                             <p className="text-zinc-400 leading-relaxed">
                                 Utilisez les boutons officiels ci-dessous pour télécharger la version sécurisée (iOS ou Android).
                             </p>
@@ -130,7 +129,7 @@ export function RegistrationTutorial({ videoUrl, videoThumbnail }: RegistrationT
                         <div>
                             <h3 className="text-xl font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors">Inscription Complète</h3>
                             <p className="text-zinc-400 leading-relaxed">
-                                Choisissez l'option <span className="text-white font-semibold">"Inscription Complète"</span>. C'est crucial pour valider votre compte et retirer vos gains sans blocage.
+                                Choisissez l&apos;option <span className="text-white font-semibold">&quot;Inscription Complète&quot;</span>. C&apos;est crucial pour valider votre compte et retirer vos gains sans blocage.
                             </p>
                         </div>
                     </div>
