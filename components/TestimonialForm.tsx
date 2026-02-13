@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { emitLiveSync } from "@/lib/liveSync";
 
 export function TestimonialForm() {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,6 +32,7 @@ export function TestimonialForm() {
       }
 
       setIsSuccess(true);
+      emitLiveSync("testimonials:submitted");
       e.currentTarget.reset();
     } catch (_err: unknown) {
       console.error(_err);
@@ -46,21 +48,27 @@ export function TestimonialForm() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 mb-12">
+    <div className="w-full max-w-4xl mx-auto px-3 min-[430px]:px-4 mb-10 sm:mb-12">
       {!isOpen ? (
         <button 
           onClick={() => setIsOpen(true)}
-          className="w-full bg-zinc-900/50 hover:bg-zinc-900 border border-zinc-800 border-dashed rounded-xl p-6 text-center transition-all group"
+          className="group relative w-full overflow-hidden rounded-2xl border-2 border-dashed border-blue-400 bg-zinc-900 p-4 min-[380px]:p-5 sm:p-6 text-center transition-all hover:border-blue-300 hover:bg-zinc-900/95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60"
         >
-          <span className="text-3xl block mb-2 group-hover:scale-110 transition-transform">✍️</span>
-          <h3 className="text-lg font-bold text-white">Ajouter votre témoignage</h3>
-          <p className="text-zinc-400 text-sm mt-1">Gagné grâce à la méthode ? Partagez votre expérience !</p>
+          <span className="pointer-events-none absolute inset-0 opacity-100 transition-opacity duration-300 bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.22),transparent_65%)] group-hover:opacity-100" />
+          <span className="relative text-3xl block mb-2 scale-110 transition-transform group-hover:scale-110">✍️</span>
+          <h3 className="relative text-base min-[380px]:text-lg font-bold text-white">Partagez votre retour d&apos;experience</h3>
+          <p className="relative mt-2 text-xs min-[380px]:text-sm font-semibold text-blue-300">Cliquez ici pour envoyer votre avis</p>
+          <p className="relative text-zinc-400 text-sm mt-1">Chaque temoignage est verifie avant publication.</p>
         </button>
       ) : (
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 animate-in fade-in slide-in-from-bottom-4">
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="text-xl font-bold text-white">Nouveau témoignage</h3>
+        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 min-[380px]:p-5 sm:p-6 animate-in fade-in slide-in-from-bottom-4 shadow-lg shadow-black/30">
+          <div className="flex justify-between items-center mb-5 sm:mb-6 gap-3">
+            <h3 className="text-lg sm:text-xl font-bold text-white">Nouveau temoignage</h3>
             <button onClick={() => setIsOpen(false)} className="text-zinc-500 hover:text-white">✕</button>
+          </div>
+
+          <div className="mb-5 rounded-lg border border-blue-500/20 bg-blue-500/10 px-3 py-2 text-sm text-blue-200">
+            Remplissez ce formulaire en 30 secondes, puis cliquez sur <span className="font-semibold text-white">Envoyer</span>.
           </div>
 
           {isSuccess ? (
@@ -69,9 +77,9 @@ export function TestimonialForm() {
                 ✓
               </div>
               <h4 className="text-xl font-bold text-white mb-2">Merci !</h4>
-              <p className="text-zinc-400">Votre témoignage a été reçu et sera publié après validation.</p>
+              <p className="text-zinc-400">Votre temoignage a bien ete recu et sera publie apres validation.</p>
               
-              <div className="flex justify-center gap-3 mt-6">
+              <div className="flex flex-col min-[380px]:flex-row justify-center gap-2.5 min-[380px]:gap-3 mt-6">
                 <button onClick={() => setIsOpen(false)} className="px-4 py-2 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors">
                     Fermer
                 </button>
@@ -82,7 +90,7 @@ export function TestimonialForm() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-2 gap-3.5 sm:gap-4">
                 <div>
                   <label className="block text-sm font-medium text-zinc-400 mb-1">Votre Prénom</label>
                   <input name="name" type="text" required className="w-full bg-black border border-zinc-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500" placeholder="Ex: Jean P." />
@@ -122,12 +130,12 @@ export function TestimonialForm() {
 
               {error && <p className="text-red-400 text-sm">{error}</p>}
 
-              <div className="flex justify-end gap-3 pt-2">
+              <div className="flex flex-col-reverse min-[430px]:flex-row justify-end gap-2.5 sm:gap-3 pt-2">
                 <button type="button" onClick={() => setIsOpen(false)} className="px-4 py-2 rounded-lg text-zinc-400 hover:text-white text-sm">Annuler</button>
                 <button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-2 rounded-lg transition-colors flex items-center gap-2 disabled:opacity-50"
+                  className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-5 sm:px-6 py-2 rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
                 >
                   {isSubmitting ? (
                     <>

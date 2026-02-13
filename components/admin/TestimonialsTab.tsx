@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
+import { emitLiveSync, subscribeLiveSync } from "@/lib/liveSync";
 
 interface Testimonial {
   id: string;
@@ -37,11 +38,35 @@ export function TestimonialsTab() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [alert, setAlert] = useState<{ type: string; message: string } | null>(null);
 
-  useEffect(() => { fetchTestimonials(); }, []);
+  useEffect(() => {
+    fetchTestimonials();
+
+    const unsubscribe = subscribeLiveSync((topic) => {
+      if (topic.startsWith("testimonials:") || topic.startsWith("content:testimonials")) {
+        fetchTestimonials();
+      }
+    });
+
+    const intervalId = window.setInterval(fetchTestimonials, 3000);
+
+    const onWindowFocus = () => {
+      fetchTestimonials();
+    };
+
+    window.addEventListener("focus", onWindowFocus);
+
+    return () => {
+      unsubscribe();
+      window.clearInterval(intervalId);
+      window.removeEventListener("focus", onWindowFocus);
+    };
+  }, []);
 
   const fetchTestimonials = async () => {
     try {
-      const res = await fetch("/api/admin/testimonials");
+      const res = await fetch("/api/admin/testimonials", {
+        cache: "no-store",
+      });
       if (res.ok) {
         const data = await res.json();
         setTestimonials(data.testimonials || []);
@@ -78,6 +103,7 @@ export function TestimonialsTab() {
         setEditingId(null);
         setFormData({ name: "", text: "", date: new Date().toISOString().split("T")[0], source: "WhatsApp", imageUrl: "", rating: 5, file: null });
         fetchTestimonials();
+        emitLiveSync("content:testimonials");
         showAlert("success", editingId ? "Capture modifiée !" : "Capture ajoutée !");
       }
     } catch (e: unknown) { console.error(e); showAlert("error", "Erreur lors de l'enregistrement"); }
@@ -90,6 +116,7 @@ export function TestimonialsTab() {
         body: JSON.stringify({ id, isActive: !isActive })
       });
       fetchTestimonials();
+      emitLiveSync("content:testimonials");
       showAlert("success", isActive ? "Désactivé" : "Activé");
     } catch (e: unknown) { console.error("Error toggling active status", e); }
   };
@@ -99,6 +126,7 @@ export function TestimonialsTab() {
     try {
       await fetch(`/api/admin/testimonials?id=${id}`, { method: "DELETE" });
       fetchTestimonials();
+      emitLiveSync("content:testimonials");
       showAlert("success", "Supprimé");
     } catch (e: unknown) { console.error("Error deleting testimonial", e); }
   };

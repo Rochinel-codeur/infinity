@@ -2,15 +2,50 @@ import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import prisma from "./prisma";
+import { execFile } from "child_process";
+import { promisify } from "util";
+import { resolve } from "path";
 
 const JWT_SECRET = process.env.ADMIN_JWT_SECRET || "default-secret-change-me";
 const TOKEN_NAME = "admin_token";
+const execFileAsync = promisify(execFile);
 
 export interface AdminPayload {
   id: string;
   email: string;
   name: string;
   role: string;
+}
+
+interface AdminRecord extends AdminPayload {
+  password: string;
+}
+
+function normalizeEmail(email: string) {
+  return email.trim().toLowerCase();
+}
+
+function getSqliteDbCandidates() {
+  return [resolve(process.cwd(), "prisma/dev.db"), resolve(process.cwd(), "dev.db")];
+}
+
+async function queryAdminFromSqlite(email: string): Promise<AdminRecord | null> {
+  const normalizedEmail = normalizeEmail(email).replace(/'/g, "''");
+  const sql = `SELECT id, email, name, role, password FROM Admin WHERE lower(email)='${normalizedEmail}' LIMIT 1;`;
+
+  for (const dbPath of getSqliteDbCandidates()) {
+    try {
+      const { stdout } = await execFileAsync("sqlite3", [dbPath, "-json", sql]);
+      const rows = JSON.parse(stdout || "[]") as AdminRecord[];
+      if (rows.length > 0) {
+        return rows[0];
+      }
+    } catch {
+      // Ignore and try next database path.
+    }
+  }
+
+  return null;
 }
 
 export async function hashPassword(password: string): Promise<string> {
@@ -59,21 +94,39 @@ export async function removeAdminCookie(): Promise<void> {
 }
 
 export async function authenticateAdmin(email: string, password: string): Promise<AdminPayload | null> {
-  const admin = await prisma.admin.findUnique({
-    where: { email },
-  });
+  const normalizedEmail = normalizeEmail(email);
+  const normalizedPassword = password.trim();
 
-  if (!admin) return null;
+  try {
+    const admin = await prisma.admin.findUnique({
+      where: { email: normalizedEmail },
+    });
 
-  const isValid = await verifyPassword(password, admin.password);
-  if (!isValid) return null;
+    if (!admin) return null;
 
-  return {
-    id: admin.id,
-    email: admin.email,
-    name: admin.name,
-    role: admin.role,
-  };
+    const isValid = await verifyPassword(normalizedPassword, admin.password);
+    if (!isValid) return null;
+
+    return {
+      id: admin.id,
+      email: admin.email,
+      name: admin.name,
+      role: admin.role,
+    };
+  } catch {
+    const fallbackAdmin = await queryAdminFromSqlite(normalizedEmail);
+    if (!fallbackAdmin) return null;
+
+    const isValid = await verifyPassword(normalizedPassword, fallbackAdmin.password);
+    if (!isValid) return null;
+
+    return {
+      id: fallbackAdmin.id,
+      email: fallbackAdmin.email,
+      name: fallbackAdmin.name,
+      role: fallbackAdmin.role,
+    };
+  }
 }
 
 export async function createDefaultAdmin(): Promise<void> {

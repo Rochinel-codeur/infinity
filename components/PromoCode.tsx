@@ -13,7 +13,24 @@ export function PromoCode({ code }: { code: string }) {
 
   async function copy() {
     try {
-      await navigator.clipboard.writeText(code);
+      if (typeof navigator !== "undefined" && navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(code);
+      } else {
+        const textarea = document.createElement("textarea");
+        textarea.value = code;
+        textarea.setAttribute("readonly", "true");
+        textarea.style.position = "fixed";
+        textarea.style.top = "-9999px";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        const success = document.execCommand("copy");
+        document.body.removeChild(textarea);
+        if (!success) {
+          throw new Error("copy_failed");
+        }
+      }
       setState("copied");
       window.setTimeout(() => setState("idle"), 1200);
     } catch {
@@ -60,4 +77,3 @@ export function PromoCode({ code }: { code: string }) {
     </div>
   );
 }
-

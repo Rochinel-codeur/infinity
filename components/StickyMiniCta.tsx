@@ -35,8 +35,8 @@ export function StickyMiniCta({
       `}
     >
       <div className="sticky-cta safe-area-inset-bottom">
-        <div className="mx-auto max-w-[1120px] px-4 py-3 sm:px-6">
-          <div className="flex items-center justify-between gap-4">
+        <div className="mx-auto max-w-[1120px] px-3 min-[430px]:px-4 py-2.5 sm:py-3 sm:px-6">
+          <div className="flex flex-col min-[430px]:flex-row items-stretch min-[430px]:items-center justify-between gap-2.5 min-[430px]:gap-4">
             {/* Code display */}
             <div className="flex items-center gap-3 min-w-0">
               <div className="hidden sm:flex w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 items-center justify-center shadow-md shrink-0">
@@ -45,11 +45,11 @@ export function StickyMiniCta({
                 </svg>
               </div>
               <div className="min-w-0">
-                <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 truncate">
+                <p className="text-xs min-[380px]:text-sm font-semibold text-zinc-900 dark:text-zinc-100 truncate">
                   {label}
                 </p>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 hidden sm:block">
-                  Copie-le avant de t&apos;inscrire
+                <p className="text-[11px] text-zinc-500 dark:text-zinc-400 hidden min-[430px]:block">
+                  Copiez le code avant de vous inscrire sur 1xbet
                 </p>
               </div>
             </div>
@@ -57,7 +57,7 @@ export function StickyMiniCta({
             {/* CTA Button */}
             <a
               href={href}
-              className="shrink-0 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg transition-all duration-300 hover:shadow-glow hover:-translate-y-0.5"
+              className="shrink-0 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 px-4 min-[380px]:px-5 py-2.5 text-sm font-bold text-white shadow-lg transition-all duration-300 hover:shadow-glow hover:-translate-y-0.5"
             >
               <span>{action}</span>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

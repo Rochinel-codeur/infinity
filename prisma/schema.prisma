@@ -82,6 +82,7 @@ model Video {
   url         String
   thumbnailUrl String?
   isActive    Boolean  @default(true)
+  isTutorial  Boolean  @default(false)
   order       Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -111,15 +112,19 @@ model PushSubscription {
 
 // Scrolling Screenshots (Marquee)
 model WinningScreenshot {
-  id        String   @id @default(cuid())
-  name      String
-  message   String
-  amount    String
-  time      String
-  imageUrl  String?
-  type      String   @default("win") // win, thanks
-  isActive  Boolean  @default(true)
-  order     Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(cuid())
+  name        String
+  message     String
+  amount      String
+  time        String
+  imageUrl    String?
+  type        String   @default("win") // win, thanks
+  showName    Boolean  @default(true)
+  showMessage Boolean  @default(true)
+  showAmount  Boolean  @default(true)
+  showTime    Boolean  @default(true)
+  isActive    Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

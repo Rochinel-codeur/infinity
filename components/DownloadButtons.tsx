@@ -14,7 +14,7 @@ function ButtonShell({
 }) {
   const baseStyles = `
     group relative inline-flex w-full items-center justify-center gap-3 
-    rounded-2xl px-5 py-4 text-left font-semibold
+    rounded-2xl px-4 sm:px-5 py-3.5 sm:py-4 text-left font-semibold
     shadow-soft outline-none transition-all duration-300
     hover:shadow-soft-lg hover:-translate-y-1
     focus-visible:ring-2 focus-visible:ring-emerald-500/50
@@ -45,7 +45,7 @@ function ButtonShell({
 
 function AppleIcon() {
   return (
-    <div className="w-10 h-10 rounded-xl bg-black dark:bg-white flex items-center justify-center shadow-md">
+    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-black dark:bg-white flex items-center justify-center shadow-md">
       <svg viewBox="0 0 24 24" aria-hidden="true" className="h-6 w-6 text-white dark:text-zinc-900">
         <path
           fill="currentColor"
@@ -58,7 +58,7 @@ function AppleIcon() {
 
 function GooglePlayIcon() {
   return (
-    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 via-indigo-500 to-cyan-500 flex items-center justify-center shadow-md">
+    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-blue-500 via-indigo-500 to-cyan-500 flex items-center justify-center shadow-md">
       <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 text-white">
         <path
           fill="currentColor"
@@ -72,7 +72,7 @@ function GooglePlayIcon() {
 export function DownloadButtons({
   playStoreUrl = PLAY_STORE_URL,
   appStoreUrl = APP_STORE_URL,
-  microcopy = "Télécharge l'application officielle avant de t'inscrire"
+  microcopy = "Telechargez l'application officielle 1xbet avant de vous inscrire"
 }: {
   playStoreUrl?: string;
   appStoreUrl?: string;
@@ -80,7 +80,7 @@ export function DownloadButtons({
 }) {
   return (
     <div className="space-y-4">
-      <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
+      <p className="text-sm min-[380px]:text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
         {microcopy}
       </p>
       
@@ -89,9 +89,9 @@ export function DownloadButtons({
           <AppleIcon />
           <div className="text-left">
             <div className="text-[10px] font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-wide">
-              Télécharger 1xBet
+              Telecharger 1xbet
             </div>
-            <div className="text-base font-bold text-white dark:text-zinc-900">
+            <div className="text-[15px] sm:text-base font-bold text-white dark:text-zinc-900">
               App Store (iOS)
             </div>
           </div>
@@ -101,9 +101,9 @@ export function DownloadButtons({
           <GooglePlayIcon />
           <div className="text-left">
             <div className="text-[10px] font-medium text-zinc-400 uppercase tracking-wide">
-              Télécharger 1xBet
+              Telecharger 1xbet
             </div>
-            <div className="text-base font-bold text-zinc-900 dark:text-zinc-100">
+            <div className="text-[15px] sm:text-base font-bold text-zinc-900 dark:text-zinc-100">
               Google Play (Android)
             </div>
           </div>

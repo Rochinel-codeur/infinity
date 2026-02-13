@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { getAdminFromCookies } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function GET() {
   const admin = await getAdminFromCookies();
   if (!admin) {
@@ -50,6 +53,21 @@ export async function GET() {
       by: ["browser"],
       _count: { id: true },
       where: { browser: { not: null } },
+    });
+
+    const recentEvents = await prisma.event.findMany({
+      where: {
+        type: { in: ["page_view", "code_copy", "download_click", "signup_click"] },
+      },
+      orderBy: { createdAt: "desc" },
+      take: 20,
+      select: {
+        id: true,
+        type: true,
+        device: true,
+        source: true,
+        createdAt: true,
+      },
     });
 
     // Hourly activity (last 24h)
@@ -105,6 +123,11 @@ export async function GET() {
         count: b._count.id,
       })),
       hourlyActivity: hourlyData,
+      recentEvents,
+    }, {
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+      },
     });
   } catch (error) {
     console.error("Analytics error:", error);

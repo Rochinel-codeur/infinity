@@ -1,0 +1,17 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M125.7 131.4C137.9 119.2 157.7 119.2 169.9 131.4L337.9 299.4V154.3C337.9 137.1 351.9 123.1 369.1 123.1C386.3 123.1 400.3 137.1 400.3 154.3V374.9C400.3 392.1 386.3 406.1 369.1 406.1H148.5C131.3 406.1 117.3 392.1 117.3 374.9C117.3 357.7 131.3 343.7 148.5 343.7H293.7L125.7 175.7C113.5 163.5 113.5 143.7 125.7 131.4Z" fill="url(#paint0_linear)"/>
+<path d="M125.7 131.4L293.7 299.4H148.5C131.3 299.4 117.3 313.4 117.3 330.6V374.9C117.3 392.1 131.3 406.1 148.5 406.1H369.1C386.3 406.1 400.3 392.1 400.3 374.9V154.3C400.3 137.1 386.3 123.1 369.1 123.1H353.5V283.8L169.9 131.4C157.7 119.2 137.9 119.2 125.7 131.4Z" fill="url(#paint1_radial)" fill-opacity="0.4"/>
+<defs>
+<linearGradient id="paint0_linear" x1="100" y1="100" x2="400" y2="400" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="#E2E8F0"/>
+</linearGradient>
+<radialGradient id="paint1_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(350 150) rotate(90) scale(200)">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="#94A3B8" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<filter id="shadow" x="0" y="0" width="512" height="512" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feDropShadow dx="4" dy="8" stdDeviation="8" flood-opacity="0.3"/>
+</filter>
+</svg>

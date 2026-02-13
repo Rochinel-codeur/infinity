@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { getAdminFromCookies } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function GET() {
   const admin = await getAdminFromCookies();
   
@@ -146,6 +149,10 @@ export async function GET() {
       })),
       recentUsers,
       dailyStats,
+    }, {
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+      },
     });
   } catch (error) {
     console.error("Stats error:", error);

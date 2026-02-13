@@ -11,10 +11,26 @@ function createPrismaClient() {
   });
 }
 
-export const prisma = globalForPrisma.prisma ?? createPrismaClient();
+const unavailablePrisma = new Proxy(
+  {},
+  {
+    get() {
+      throw new Error("Prisma client unavailable");
+    },
+  }
+) as PrismaClient;
 
-if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.prisma = prisma;
+let prisma: PrismaClient;
+
+try {
+  prisma = globalForPrisma.prisma ?? createPrismaClient();
+  if (process.env.NODE_ENV !== "production") {
+    globalForPrisma.prisma = prisma;
+  }
+} catch (error) {
+  console.error("Prisma initialization failed:", error);
+  prisma = unavailablePrisma;
 }
 
+export { prisma };
 export default prisma;

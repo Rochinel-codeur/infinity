@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { AnimatedCounter } from "./AnimatedCounter";
 
 interface HeroSectionProps {
@@ -16,7 +17,7 @@ export function HeroSection({ subtitle, appliedCount }: HeroSectionProps) {
   }, []);
 
   return (
-    <section className="relative pt-20 pb-16 sm:pt-32 sm:pb-24 overflow-visible">
+    <section className="relative pt-[clamp(3.5rem,8vw,8rem)] pb-[clamp(2.5rem,6vw,6rem)] overflow-visible">
       
       {/* Dynamic blobs */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] pointer-events-none">
@@ -27,19 +28,19 @@ export function HeroSection({ subtitle, appliedCount }: HeroSectionProps) {
       <div className={`relative z-10 text-center transition-all duration-1000 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
         
         {/* New Pill Badge */}
-        <div className="inline-flex items-center gap-2 pl-2 pr-4 py-1.5 rounded-full bg-white/50 dark:bg-zinc-800/50 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-700/50 mb-8 hover:scale-105 transition-transform cursor-default shadow-sm">
+        <div className="inline-flex items-center gap-2 pl-2 pr-4 py-1.5 rounded-full bg-white/50 dark:bg-zinc-800/50 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-700/50 mb-6 sm:mb-8 hover:scale-105 transition-transform cursor-default shadow-sm">
           <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500 text-white shadow-emerald-500/30">
             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
           </span>
-          <span className="text-sm font-semibold text-zinc-800 dark:text-zinc-200 tracking-wide">
+          <span className="text-xs min-[380px]:text-sm font-semibold text-zinc-800 dark:text-zinc-200 tracking-wide">
             Approuvée par la communauté
           </span>
         </div>
 
         {/* Cinematic Title */}
-        <h1 className="hero-title mb-8 max-w-4xl mx-auto">
+        <h1 className="hero-title mb-6 sm:mb-8 max-w-4xl mx-auto">
           <span className="gradient-text-premium block mb-2">Méthode simple,</span>
           <span className="relative inline-block">
             <span className="gradient-text-emerald relative z-10 text-glow-emerald">Résultats prouvés.</span>
@@ -50,24 +51,26 @@ export function HeroSection({ subtitle, appliedCount }: HeroSectionProps) {
         </h1>
 
         {/* Refined Subtitle */}
-        <p className="text-xl sm:text-2xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
+        <p className="text-lg min-[380px]:text-xl sm:text-2xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed font-light">
           {subtitle}
         </p>
 
         {/* Premium Social Proof */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-          <div className="premium-card px-6 py-3 flex items-center gap-4 bg-white/80 dark:bg-zinc-800/80">
-            <div className="flex -space-x-4">
+          <div className="premium-card px-4 min-[380px]:px-6 py-3 flex items-center gap-3 min-[380px]:gap-4 bg-white/80 dark:bg-zinc-800/80">
+            <div className="flex -space-x-3 min-[380px]:-space-x-4">
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} className={`w-10 h-10 rounded-full border-2 border-white dark:border-zinc-800 bg-zinc-200 dark:bg-zinc-700 overflow-hidden relative z-[${5-i}]`}>
-                  <img 
-                    src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i*132}`} 
-                    alt="User" 
-                    className="w-full h-full object-cover"
+                <div key={i} className={`w-9 h-9 min-[380px]:w-10 min-[380px]:h-10 rounded-full border-2 border-white dark:border-zinc-800 bg-zinc-200 dark:bg-zinc-700 overflow-hidden relative z-[${5-i}]`}>
+                  <Image
+                    src={`https://api.dicebear.com/7.x/avataaars/png?seed=${i * 132}&size=128`}
+                    alt="User"
+                    fill
+                    sizes="40px"
+                    className="object-cover"
                   />
                 </div>
               ))}
-              <div className="w-10 h-10 rounded-full border-2 border-white dark:border-zinc-800 bg-emerald-500 flex items-center justify-center text-white text-xs font-bold relative z-0">
+              <div className="w-9 h-9 min-[380px]:w-10 min-[380px]:h-10 rounded-full border-2 border-white dark:border-zinc-800 bg-emerald-500 flex items-center justify-center text-white text-xs font-bold relative z-0">
                 +99
               </div>
             </div>

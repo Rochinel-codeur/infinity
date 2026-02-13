@@ -30,7 +30,7 @@ const tabs = [
   { id: "testimonials" as const, label: "Avis (Détails)", icon: "💬" },
   { id: "videos" as const, label: "Vidéos", icon: "🎬" },
   { id: "push" as const, label: "Notifications", icon: "🔔" },
-  { id: "settings" as const, label: "Paramètres", icon: "⚙️" },
+  { id: "settings" as const, label: "Paramètres / Photos", icon: "⚙️" },
 ];
 
 export function AdminSidebar({ admin, activeTab, onTabChange, isOpen, onClose }: AdminSidebarProps) {
@@ -64,7 +64,7 @@ export function AdminSidebar({ admin, activeTab, onTabChange, isOpen, onClose }:
 
       {/* Sidebar */}
       <aside className={`
-        fixed inset-y-0 left-0 z-50 w-72 flex flex-col
+        fixed inset-y-0 left-0 z-50 w-[86vw] max-w-72 flex flex-col
         bg-gradient-to-b from-indigo-950 via-indigo-900 to-purple-950
         transform transition-all duration-300
         ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}

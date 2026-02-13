@@ -2,6 +2,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { getAdminFromCookies } from "@/lib/auth";
+import { triggerAdminRevalidate } from "@/lib/adminRevalidate";
 
 export async function GET() {
   const admin = await getAdminFromCookies();
@@ -39,6 +40,11 @@ export async function POST(req: Request) {
             data: { code: promoCode, isActive: true }
         });
     }
+
+    await triggerAdminRevalidate(req, {
+      tags: ["content:home", "settings:promo"],
+      paths: ["/"],
+    });
 
     return NextResponse.json({ success: true });
   } catch (error) {

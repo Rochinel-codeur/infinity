@@ -1,4 +1,4 @@
-// File: /home/guigui2401/Documents/Dev/infinity/app/layout.tsx
+// File: /home/rochinel/Documents/prince_final/app/layout.tsx
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

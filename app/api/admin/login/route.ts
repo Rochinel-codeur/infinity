@@ -4,15 +4,17 @@ import { authenticateAdmin, generateToken, setAdminCookie } from "@/lib/auth";
 export async function POST(request: NextRequest) {
   try {
     const { email, password } = await request.json();
+    const normalizedEmail = typeof email === "string" ? email.trim().toLowerCase() : "";
+    const normalizedPassword = typeof password === "string" ? password.trim() : "";
 
-    if (!email || !password) {
+    if (!normalizedEmail || !normalizedPassword) {
       return NextResponse.json(
         { error: "Email et mot de passe requis" },
         { status: 400 }
       );
     }
 
-    const admin = await authenticateAdmin(email, password);
+    const admin = await authenticateAdmin(normalizedEmail, normalizedPassword);
 
     if (!admin) {
       return NextResponse.json(

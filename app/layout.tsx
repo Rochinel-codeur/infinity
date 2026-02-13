@@ -1,8 +1,34 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import { Inter, Outfit, Playfair_Display } from "next/font/google";
+import dynamic from "next/dynamic";
 import "./globals.css";
 import { TrackingProvider } from "@/components/TrackingProvider";
-import { PushNotificationManager } from "@/components/PushNotificationManager";
+
+const PushNotificationManager = dynamic(
+  () => import("@/components/PushNotificationManager").then((mod) => mod.PushNotificationManager),
+  { ssr: false },
+);
+
+const inter = Inter({ 
+  subsets: ["latin"], 
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const outfit = Outfit({ 
+  subsets: ["latin"], 
+  variable: "--font-outfit",
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800", "900"],
+});
 
 function getMetadataBase(): URL | undefined {
   const raw = process.env.NEXT_PUBLIC_SITE_URL;
@@ -76,11 +102,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="fr" suppressHydrationWarning className="scroll-smooth">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      </head>
-      <body className="min-h-screen bg-white text-zinc-950 antialiased selection:bg-emerald-500/20 selection:text-zinc-950 dark:bg-zinc-950 dark:text-zinc-50 dark:selection:bg-emerald-400/30 dark:selection:text-zinc-50">
+      <body className={`${inter.variable} ${outfit.variable} ${playfair.variable} font-sans min-h-screen bg-white text-zinc-950 antialiased selection:bg-emerald-500/20 selection:text-zinc-950 dark:bg-zinc-950 dark:text-zinc-50 dark:selection:bg-emerald-400/30 dark:selection:text-zinc-50`}>
         <TrackingProvider>
           {children}
           <PushNotificationManager />

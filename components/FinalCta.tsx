@@ -4,7 +4,7 @@ export function FinalCta({
   promoCode = PROMO_CODE,
   signupUrl = SIGNUP_URL,
   downloadHref = "#download",
-  title = "Prêt à faire comme les autres ?"
+  title = "Telecharger l'application 1xbet"
 }: {
   promoCode?: string;
   signupUrl?: string;
@@ -14,7 +14,7 @@ export function FinalCta({
   return (
     <section
       aria-label="Appel à l'action"
-      className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-700 via-indigo-600 to-violet-600 p-6 sm:p-8 shadow-glow-lg"
+      className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-700 via-indigo-600 to-violet-600 p-4 min-[380px]:p-6 sm:p-8 shadow-glow-lg"
     >
       {/* Background decorations */}
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIgMS44LTQgNC00czQgMS44IDQgNC0xLjggNC00IDQtNC0xLjgtNC00eiIvPjwvZz48L2c+PC9zdmc+')] opacity-30" />
@@ -25,17 +25,17 @@ export function FinalCta({
         {/* Header */}
         <div className="text-center mb-6">
           <div className="inline-flex items-center gap-2 bg-white/20 rounded-full px-4 py-2 mb-4">
-            <span className="text-white/90 text-sm font-medium">🎯 Dernière étape</span>
+            <span className="text-white/90 text-sm font-medium">🎯 Etape finale</span>
           </div>
           
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-3">
+          <h2 className="section-heading font-serif tracking-tight text-white mb-3">
             {title}
           </h2>
           
-          <p className="text-base sm:text-lg text-white/90 max-w-md mx-auto">
-            Télécharge l&apos;application, puis utilise le code promo{" "}
+          <p className="text-sm min-[380px]:text-base sm:text-lg text-white/90 max-w-md mx-auto">
+            Telechargez l&apos;application 1xbet, puis utilisez le code promo{" "}
             <span className="font-bold bg-white/20 px-2 py-0.5 rounded">{promoCode}</span>{" "}
-            à l&apos;inscription.
+            pendant l&apos;inscription pour activer la methode.
           </p>
         </div>
 
@@ -43,32 +43,32 @@ export function FinalCta({
         <div className="grid gap-3 sm:grid-cols-2 sm:gap-4 max-w-lg mx-auto">
           <a
             href={downloadHref}
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-4 text-base font-bold text-blue-700 shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-white/50"
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 sm:px-6 py-3.5 sm:py-4 text-sm min-[380px]:text-base font-bold text-blue-700 shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-white/50"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
-            Télécharger l&apos;app
+            Telecharger l&apos;app 1xbet
           </a>
           
           <a
             href={signupUrl}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`S'inscrire avec le code ${promoCode} (lien externe)`}
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-zinc-900 px-6 py-4 text-base font-bold text-white shadow-lg transition-all duration-300 hover:bg-zinc-800 hover:shadow-xl hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-white/50"
+            aria-label={`S'inscrire sur 1xbet avec le code ${promoCode} (lien externe)`}
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-zinc-900 px-4 sm:px-6 py-3.5 sm:py-4 text-sm min-[380px]:text-base font-bold text-white shadow-lg transition-all duration-300 hover:bg-zinc-800 hover:shadow-xl hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-white/50"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
-            S&apos;inscrire maintenant
+            S&apos;inscrire sur 1xbet
           </a>
         </div>
 
         {/* Alternative links */}
         <div className="mt-6 text-center">
-          <p className="text-sm text-white/70 mb-2">Liens directs vers les stores :</p>
-          <div className="flex items-center justify-center gap-4">
+          <p className="text-sm text-white/70 mb-2">Liens directs officiels :</p>
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             <a
               href={APP_STORE_URL}
               target="_blank"
@@ -96,7 +96,7 @@ export function FinalCta({
         </div>
 
         {/* Trust badges */}
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs text-white/60">
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs text-white/60">
           <div className="flex items-center gap-1.5">
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />

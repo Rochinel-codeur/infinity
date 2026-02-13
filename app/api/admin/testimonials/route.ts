@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAdminFromCookies } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import { triggerAdminRevalidate } from "@/lib/adminRevalidate";
+import { ensureDefaultTextTestimonials } from "@/lib/defaultTestimonials";
 import { Prisma } from "@prisma/client";
-import { writeFile } from "fs/promises";
+import { mkdir, writeFile } from "fs/promises";
 import { join } from "path";
 import { v4 as uuidv4 } from "uuid";
 
@@ -14,6 +16,8 @@ export async function GET() {
   }
 
   try {
+    await ensureDefaultTextTestimonials();
+
     const testimonials = await prisma.testimonial.findMany({
       orderBy: [{ order: "asc" }, { createdAt: "desc" }],
     });
@@ -32,6 +36,7 @@ async function uploadFile(file: File) {
   const buffer = Buffer.from(bytes);
   const filename = `${uuidv4()}-${file.name.replace(/[^a-zA-Z0-9.]/g, "")}`;
   const uploadDir = join(process.cwd(), "public/uploads");
+  await mkdir(uploadDir, { recursive: true });
   const filepath = join(uploadDir, filename);
   await writeFile(filepath, buffer);
   return `/uploads/${filename}`;
@@ -69,6 +74,11 @@ export async function POST(request: NextRequest) {
         isActive,
         order,
       },
+    });
+
+    await triggerAdminRevalidate(request, {
+      tags: ["content:home", "content:testimonials"],
+      paths: ["/"],
     });
 
     return NextResponse.json({ testimonial });
@@ -137,6 +147,11 @@ export async function PUT(request: NextRequest) {
       data,
     });
 
+    await triggerAdminRevalidate(request, {
+      tags: ["content:home", "content:testimonials"],
+      paths: ["/"],
+    });
+
     return NextResponse.json({ testimonial });
   } catch (_error) {
     console.error("Testimonial update error:", _error);
@@ -160,6 +175,11 @@ export async function DELETE(request: NextRequest) {
     }
 
     await prisma.testimonial.delete({ where: { id } });
+
+    await triggerAdminRevalidate(request, {
+      tags: ["content:home", "content:testimonials"],
+      paths: ["/"],
+    });
 
     return NextResponse.json({ success: true });
   } catch (_error) {

@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { getAdminFromCookies } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 // Get all notifications
 export async function GET() {
   const admin = await getAdminFromCookies();
@@ -40,7 +43,11 @@ export async function GET() {
     // Count unread
     const unreadCount = notifications.filter(n => !n.read).length;
 
-    return NextResponse.json({ notifications, unreadCount });
+    return NextResponse.json({ notifications, unreadCount }, {
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+      },
+    });
   } catch (error) {
     console.error("Notifications error:", error);
     return NextResponse.json({ error: "Erreur" }, { status: 500 });

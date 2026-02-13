@@ -1,5 +1,7 @@
 import prisma from "@/lib/prisma";
 
+const TUTORIAL_VIDEO_SETTING_KEY = "tutorialVideoId";
+
 export async function getActiveTestimonials() {
   try {
     return await prisma.testimonial.findMany({
@@ -46,5 +48,17 @@ export async function getPromoCode() {
   } catch (e: unknown) {
     console.error(e);
     return "BCC123";
+  }
+}
+
+export async function getTutorialVideoId() {
+  try {
+    const setting = await prisma.setting.findUnique({
+      where: { key: TUTORIAL_VIDEO_SETTING_KEY },
+    });
+    return setting?.value || null;
+  } catch (error) {
+    console.error("Error fetching tutorial video id:", error);
+    return null;
   }
 }

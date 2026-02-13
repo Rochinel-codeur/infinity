@@ -1,7 +1,7 @@
 
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { writeFile } from "fs/promises";
+import { mkdir, writeFile } from "fs/promises";
 import { join } from "path";
 import { v4 as uuidv4 } from "uuid";
 
@@ -29,10 +29,7 @@ export async function POST(req: Request) {
       // Create unique filename
       const filename = `${uuidv4()}-${file.name.replace(/[^a-zA-Z0-9.]/g, "")}`;
       const uploadDir = join(process.cwd(), "public/uploads");
-      
-      // Ensure upload dir exists (Node 10+ recursive default is false but we assume public exists)
-      // Actually let's assume public/uploads exists or create it.
-      // We'll skip mkdir for simplicity assuming folder validation or error handle
+      await mkdir(uploadDir, { recursive: true });
       
       const filepath = join(uploadDir, filename);
       await writeFile(filepath, buffer);

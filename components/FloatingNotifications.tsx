@@ -31,9 +31,9 @@ export function FloatingNotifications() {
   if (visibleNotifications.length === 0) return null;
 
   return (
-    <div className="fixed top-24 right-4 z-50 flex flex-col gap-4 max-w-xs sm:max-w-sm w-full pointer-events-none">
+    <div className="fixed top-24 left-3 right-3 sm:left-auto sm:right-4 z-50 flex flex-col gap-3 sm:gap-4 max-w-[calc(100vw-1.5rem)] sm:max-w-sm w-auto sm:w-full pointer-events-none">
        {visibleNotifications.map(n => (
-          <div key={n.id} className="pointer-events-auto bg-zinc-900/95 backdrop-blur-md border border-blue-500/50 p-4 rounded-2xl shadow-xl animate-bounce-in relative overflow-hidden group">
+          <div key={n.id} className="pointer-events-auto bg-zinc-900/95 backdrop-blur-md border border-blue-500/50 p-3.5 sm:p-4 rounded-2xl shadow-xl animate-bounce-in relative overflow-hidden group">
              {/* Glow */}
              <div className={`absolute top-0 left-0 w-1.5 h-full ${n.level === 'urgent' ? 'bg-red-500' : 'bg-blue-500'}`} />
              
@@ -44,7 +44,7 @@ export function FloatingNotifications() {
                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/></svg>
              </button>
 
-             <div className="flex gap-3 pr-6">
+             <div className="flex gap-2.5 sm:gap-3 pr-6">
                 <div className="mt-1 flex-shrink-0">
                     {n.level === 'urgent' && <span className="text-2xl animate-pulse">🚨</span>}
                     {n.level === 'success' && <span className="text-2xl">🎉</span>}
@@ -52,7 +52,7 @@ export function FloatingNotifications() {
                     {n.level === 'warning' && <span className="text-2xl">⚠️</span>}
                 </div>
                 <div>
-                    <p className="text-white font-semibold text-sm leading-relaxed tracking-wide font-sans">
+                    <p className="text-white font-semibold text-[13px] sm:text-sm leading-relaxed tracking-wide font-sans break-words">
                         {n.message}
                     </p>
                     <p className="text-[10px] text-zinc-500 mt-1 uppercase tracking-widest">Message Admin</p>
